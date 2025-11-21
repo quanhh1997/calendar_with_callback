@@ -1,0 +1,28 @@
+PODS:
+  - calendar_with_callback (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+  - permission_handler_apple (9.3.0):
+    - Flutter
+
+DEPENDENCIES:
+  - calendar_with_callback (from `.symlinks/plugins/calendar_with_callback/ios`)
+  - Flutter (from `Flutter`)
+  - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
+
+EXTERNAL SOURCES:
+  calendar_with_callback:
+    :path: ".symlinks/plugins/calendar_with_callback/ios"
+  Flutter:
+    :path: Flutter
+  permission_handler_apple:
+    :path: ".symlinks/plugins/permission_handler_apple/ios"
+
+SPEC CHECKSUMS:
+  calendar_with_callback: 2a5c1942f8ec94ec2cc417d55341e6a583f22387
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  permission_handler_apple: 4ed2196e43d0651e8ff7ca3483a069d469701f2d
+
+PODFILE CHECKSUM: 001e0be085bac429db7ea21ce621c46c71f8fd48
+
+COCOAPODS: 1.16.2
