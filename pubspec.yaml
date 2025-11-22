@@ -25,7 +25,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: com.example.calendar_with_callback
+        package: com.quanhh.calendar_with_callback
         pluginClass: CalendarWithCallbackPlugin
       ios:
         pluginClass: CalendarWithCallbackPlugin
