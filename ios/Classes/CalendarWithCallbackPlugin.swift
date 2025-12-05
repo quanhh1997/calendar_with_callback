@@ -65,16 +65,23 @@ public class CalendarWithCallbackPlugin: NSObject, FlutterPlugin {
     if status == .notDetermined {
       eventStore.requestAccess(to: .event) { [weak self] granted, error in
         if granted {
-          self?.createAndPresentEvent(args: args)
+          DispatchQueue.main.async {
+            self?.createAndPresentEvent(args: args)
+          }
         } else {
-          self?.result?([
-            "success": false,
-            "errorMessage": "Calendar permission denied"
-          ])
+          DispatchQueue.main.async {
+            self?.result?([
+              "success": false,
+              "errorMessage": "Calendar permission denied"
+            ])
+          }
         }
       }
     } else if status == .authorized {
-      createAndPresentEvent(args: args)
+      // Dispatch to main thread to ensure UI operations are safe
+      DispatchQueue.main.async { [weak self] in
+        self?.createAndPresentEvent(args: args)
+      }
     } else {
       result?([
         "success": false,
@@ -158,15 +165,15 @@ public class CalendarWithCallbackPlugin: NSObject, FlutterPlugin {
     // Use default calendar
     event.calendar = eventStore.defaultCalendarForNewEvents
     
-    // Create event edit view controller
-    let eventEditViewController = EKEventEditViewController()
-    eventEditViewController.eventStore = eventStore
-    eventEditViewController.event = event
-    eventEditViewController.editViewDelegate = self
-    
-    // Present the view controller
+    // Present the view controller - ALL UI operations must be on main thread
     DispatchQueue.main.async { [weak self] in
       guard let self = self else { return }
+      
+      // Create event edit view controller on main thread
+      let eventEditViewController = EKEventEditViewController()
+      eventEditViewController.eventStore = self.eventStore
+      eventEditViewController.event = event
+      eventEditViewController.editViewDelegate = self
       
       // Try to get the root view controller from the Flutter view controller
       var presentingViewController: UIViewController?
